@@ -1,0 +1,220 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>웹 룰렛 사이트</title>
+<meta name="robots" content="index,follow" />
+<meta name="robots" content="all" />
+<meta name="description" content="項目のタイプと項目数から、簡単にルーレットを作成して抽選することが出来ます。並びをランダムに変更したり、ルーレットの形を変更することも出来ます。" />
+<meta name="keywords" content="룰렛, 만들기, 사이트, 추첨, 저장" />
+<meta name="copyright" content="https://www.web-roulette.com/" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta property="og:title" content="웹 룰렛 사이트" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://kr.web-roulette.com/" />
+<meta property="og:description" content="項目のタイプと項目数から、簡単にルーレットを作成して抽選することが出来ます。並びをランダムに変更したり、ルーレットの形を変更することも出来ます。" />
+<meta property="og:site_name" content="웹 룰렛 사이트" />
+<meta property="og:image" content="https://kr.web-roulette.com/img/top_img_kr.png" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="웹 룰렛 사이트" />
+<meta name="twitter:description" content="項目のタイプと項目数から、簡単にルーレットを作成して抽選することが出来ます。並びをランダムに変更したり、ルーレットの形を変更することも出来ます。" />
+<meta name="twitter:image" content="https://kr.web-roulette.com/img/top_img_kr.png" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="stylesheet" href="/css/common.css"/>
+<script src="/js/roulette.js"></script>
+<script type="text/javascript">
+<!--
+var LNG = 'ko';
+var SpFlg = 0;
+var RType = 'easy';
+// -->
+</script>
+</head>
+<body>
+<div id="header">
+	<div id="title_logo"><a href="https://kr.web-roulette.com/"><img src="/img/title_logo.png" width="32" height="32" border="0" alt="웹 룰렛 사이트" /></a></div>
+	<h1>항목과 항목 수를 입력하여 룰렛을 작성하고 추첨할 수 있습니다.</h1>
+
+</div>
+<div id="container">
+
+<div class="roulette_ads">
+
+</div>
+
+<div class="main">
+	<div class="box_pad1">
+		<ul class="list_menu">
+			<li><a href="/fixes">고정 룰렛 만들기</a></li>
+			<li><a href="/">간단한 룰렛 만들기</a></li>
+			<li><a href="/normals">보통 룰렛 생성</a></li>
+			<li><a href="/loads">저장된 룰렛</a></li>
+		</ul>
+	</div>
+</div>
+
+<div class="main" id="easy_template">
+	<div class="h2_out"><h2>간단한 룰렛 만들기</h2></div>
+	<p class="under15">항목의 종류와 항목수를 선택하는 것만으로 간단하게 룰렛을 작성할 수 있습니다.</p>
+	<div class="main_box">
+		<div>
+			<div class="box_pad1 box_float box_right_pad">
+				룰렛 타입 <select id="roulette_type_easy" class="main_select">
+					<option value="0" selected>원형</option>
+					<option value="1">세로 타입</option>
+				</select>
+			</div>
+			<div class="box_pad1 box_float">
+				항목 유형 <select id="item_type" class="main_select">
+					<option value="0" selected>1,2,3 ...</option>
+					<option value="1">A,B,C ...</option>
+					<option value="2">하나,둘,셋 ...</option>
+				</select>
+			</div>
+		</div>
+		<div>
+			<div class="box_pad1 box_float box_clear box_right_pad">
+				항목 수 <input type="text" id="number" size="4" value="6" class="main_input_txt" />
+			</div>
+			<div class="box_pad1 box_float">
+				<input type="checkbox" id="random_easy" value="1"><label for="random_easy">정렬을 랜덤하게 한다</label>
+			</div>
+		</div>
+		<div class="box_clear">
+			<input type="button" class="button_big" id="make_button_easy" value="룰렛 만들기" />
+		</div>
+	</div>
+</div>
+
+<div class="main">
+	<div class="h2_out"><h2>룰렛</h2></div>
+	<div id="result_main_outer">
+		<div id="result_main" class="result_center"></div>
+	</div>
+<script type="text/javascript">
+	var CW,CH;
+	if(SpFlg){
+		CW = screen.width-20;
+		CH = screen.width-20;
+	}else{
+		if(document.body.clientWidth && document.body.clientWidth < 520){
+			CW = document.body.clientWidth-20;
+			CH = document.body.clientWidth-20;
+		}else{
+			CW = 500;
+			CH = 500;
+		}
+	}
+	//var out_height = (RouletteResultHeight + CH + StartButtonHeight + SaveButtonHeight+15);
+	var out_height = (CH + 155);
+	document.getElementById("result_main_outer").style.height = out_height + 'px';
+</script>
+</div>
+
+<div class="main">
+	<div class="h2_out"><h2>간단한 룰렛 사용법</h2></div>
+	<div class="main_box">
+		<h3>룰렛 만들기</h3>
+		<p>항목 유형과 항목 수에서 쉽게 룰렛을 만듭니다.</p>
+		<p>숫자나 알파벳 등에서 항목 유형을 선택하고 항목 수를 입력합니다.</p>
+		<p>또, “정렬을 랜덤하게 한다”에 체크를 넣으면, 작성시에 순서를 랜덤하게 셔플 할 수가 있습니다.</p>
+		<p>“룰렛 만들기” 버튼을 클릭하면, 룰렛이 작성됩니다.</p>
+		<p class="under15">형태도 세로형과 원형으로부터 선택할 수 있습니다.</p>
+		<p>룰렛의 “시작”버튼을 클릭하면 움직이기 시작 일정 시간 후에 정지하면 결과가 표시됩니다.</p>
+		<p class="under15">룰렛의 작성이나 보존 등 모두 무료로 이용할 수 있습니다.</p>
+		<h3>저장된 룰렛</h3>
+		<p>작성한 룰렛은 제목을 입력하고 "저장"버튼을 클릭하여 저장할 수 있습니다.</p>
+		<p class="under15">저장된 룰렛은 "저장된 룰렛"에서 읽을 수 있습니다.</p>
+	</div>
+</div>
+
+<div class="roulette_ads">
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- roulette_b -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1096968304667910"
+     data-ad-slot="7006049210"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-20871439-55"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-20871439-55');
+</script>
+
+<div id="footer">
+
+	<div class="footer_sns">
+		<div class="sns_share_box">
+			<div class="sns_share">
+				<a href="https://twitter.com/share?url=https%3A%2F%2Fkr.web-roulette.com%2F&text=%EC%9B%B9+%EB%A3%B0%EB%A0%9B+%EC%82%AC%EC%9D%B4%ED%8A%B8" rel="nofollow" target="_blank">
+					<img src="/img/twitter_icon.png" width="50" height="50" alt="Twitter" />
+				</a>
+			</div>
+			<div class="sns_share">
+				<a href="http://www.facebook.com/share.php" rel="nofollow" target="_blank">
+					<img src="/img/facebook_icon.png" width="50" height="50" alt="Facebook" />
+				</a>
+			</div>
+			<div class="sns_share">
+				<a href="http://b.hatena.ne.jp/add?mode=confirm&url=https%3A%2F%2Fkr.web-roulette.com%2F&title=%EC%9B%B9+%EB%A3%B0%EB%A0%9B+%EC%82%AC%EC%9D%B4%ED%8A%B8" rel="nofollow" target="_blank">
+					<img src="/img/hatebu_icon.png" width="50" height="50" alt="" />
+				</a>
+			</div>
+			<div class="sns_share">
+				<a href="http://getpocket.com/edit?url=https%3A%2F%2Fkr.web-roulette.com%2F&title=%EC%9B%B9+%EB%A3%B0%EB%A0%9B+%EC%82%AC%EC%9D%B4%ED%8A%B8" rel="nofollow" target="_blank">
+					<img src="/img/pocket_icon.png" width="50" height="50" alt="Pocket" />
+				</a>
+			</div>
+			<div class="sns_share sns_share1_last">
+				<a href="https://timeline.line.me/social-plugin/share?url=https%3A%2F%2Fkr.web-roulette.com%2F" rel="nofollow" target="_blank">
+					<img src="/img/line_icon.png" width="50" height="50" alt="LINE" />
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="main">
+		<div class="box_pad1">
+			<ul class="list_menu">
+				<li><a href="/fixes">고정 룰렛 만들기</a></li>
+				<li><a href="/">간단한 룰렛 만들기</a></li>
+				<li><a href="/normals">보통 룰렛 생성</a></li>
+				<li><a href="/loads">저장된 룰렛</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="main">
+		<div class="box_pad1">
+			<ul class="list_menu">
+				<li><a href="/informations/privacy">개인 정보 보호 정책</a></li>
+				<li><a href="/informations/disclaimer">면책사항</a></li>
+				<li><a href="/contacts">문의</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div id="countries">
+		<a href="https://www.web-roulette.com/"><img src="/img/japan.png" width="24" height="24" border="0" alt="일본어" /></a> 
+		<a href="https://en.web-roulette.com/"><img src="/img/united-states.png" width="24" height="24" border="0" alt="영어" /></a> 
+		<a href="https://cn.web-roulette.com/"><img src="/img/china.png" width="24" height="24" border="0" alt="중국어" /></a> 
+		<a href="https://kr.web-roulette.com/"><img src="/img/korea.png" width="24" height="24" border="0" alt="한국어" /></a> 
+		<a href="https://es.web-roulette.com/"><img src="/img/spain.png" width="24" height="24" border="0" alt="스페인어" /></a>
+	</div>
+	<div class="copyright">Copyright (C) 웹 룰렛 사이트 All Rights Reserved.</div>
+</div>
+</div>
+</body>
+</html>

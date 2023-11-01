@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>간단한 룰렛 게임</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .roulette {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .wheel {
+            width: 300px;
+            height: 300px;
+            border: 2px solid #000;
+            border-radius: 50%;
+            position: relative;
+            text-align: center;
+        }
+
+        .number {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .spin-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="roulette">
+        <div class="wheel">
+            <div class="number">0</div>
+        </div>
+        <button class="spin-button" onclick="spinWheel()">돌리기</button>
+    </div>
+
+    <script>
+        function spinWheel() {
+            const wheel = document.querySelector('.wheel');
+            const number = document.querySelector('.number');
+            const deg = Math.floor(Math.random() * 360) + 720; // 임의의 각도를 설정합니다.
+
+            wheel.style.transition = 'all 3s ease-out'; // 회전 애니메이션을 추가합니다.
+            wheel.style.transform = `rotate(${deg}deg)`; // 룰렛을 회전시킵니다.
+
+            // 일정 시간 후에 결과를 표시합니다.
+            setTimeout(() => {
+                let result = Math.floor((360 - (deg % 360)) / 15);
+                let text = '';
+                if (result === 0) {
+                    text = '0';
+                } else {
+                    text = result;
+                }
+                number.textContent = text;
+                wheel.style.transition = 'none'; // 애니메이션을 제거합니다.
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
